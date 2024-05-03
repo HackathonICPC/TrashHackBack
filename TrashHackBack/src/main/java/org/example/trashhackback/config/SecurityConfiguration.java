@@ -40,7 +40,7 @@ public class SecurityConfiguration {
                         .requestMatchers("/api/v1/auth/**").permitAll()
                         .requestMatchers("/api/v1/images/**").permitAll()
                         .anyRequest().authenticated())
-                .formLogin(form -> form.defaultSuccessUrl("/swagger-ui.html"))
+                .formLogin(form -> form.defaultSuccessUrl("/swagger-ui.html", true))
                 .httpBasic(Customizer.withDefaults());
         return http.build();
     }
