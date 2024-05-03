@@ -8,6 +8,7 @@ import lombok.Data;
 @Data
 public class ImageDao {
     @Id
+    @GeneratedValue
     private Long id;
 
     @Column

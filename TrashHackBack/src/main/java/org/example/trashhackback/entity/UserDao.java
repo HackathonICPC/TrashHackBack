@@ -8,6 +8,7 @@ import lombok.Data;
 @Data
 public class UserDao {
     @Id
+    @GeneratedValue
     private Long id;
 
     @Column

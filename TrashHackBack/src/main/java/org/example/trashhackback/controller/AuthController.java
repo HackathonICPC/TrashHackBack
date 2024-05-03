@@ -1,5 +1,6 @@
 package org.example.trashhackback.controller;
 
+import org.example.trashhackback.controller.dto.UserDto;
 import org.example.trashhackback.entity.UserDao;
 import org.example.trashhackback.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +19,8 @@ public class AuthController {
     private AuthService authService;
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody UserDao loginRequest) {
-        boolean isAuthenticated = authService.authenticate(loginRequest.getLogin(), loginRequest.getPassword());
+    public ResponseEntity<?> login(@RequestBody UserDto userDto) {
+        boolean isAuthenticated = authService.authenticate(userDto.login(), userDto.password());
         if (isAuthenticated) {
             return ResponseEntity.ok("Login successful");
         } else {
@@ -28,8 +29,8 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestBody UserDao registerRequest) {
-        boolean isRegistered = authService.register(registerRequest.getLogin(), registerRequest.getPassword());
+    public ResponseEntity<?> register(@RequestBody UserDto userDto) {
+        boolean isRegistered = authService.register(userDto.login(), userDto.password());
         if (isRegistered) {
             return ResponseEntity.ok("Registration successful");
         } else {
