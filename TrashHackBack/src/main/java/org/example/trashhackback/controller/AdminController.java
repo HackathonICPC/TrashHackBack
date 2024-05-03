@@ -4,6 +4,7 @@ import jakarta.annotation.security.PermitAll;
 import lombok.RequiredArgsConstructor;
 import org.example.trashhackback.entity.UserDao;
 import org.example.trashhackback.repository.UserRepository;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,23 +16,17 @@ public class AdminController {
 
     private final UserRepository userRepository;
 
-//    @Secured("ROLE_ADMIN")
-    @GetMapping("/deleteAll")
+    @Secured("ROLE_ADMIN")
+    @GetMapping("/api/v1/deleteAllUsers")
     Boolean deleteAllInfo() {
         userRepository.deleteAll();
         return true;
     }
 
     @PermitAll
-    @PostMapping("/schedule")
+    @PostMapping("/api/v1/createUser")
     void createUser(@RequestBody UserDao schedule) {
         userRepository.save(schedule);
     }
 
-//    @Secured("ROLE_USER")
-/*    @PermitAll
-    @PostMapping("/record")
-    void createRecord(@RequestBody RecordEntity record) {
-        recordRepository.save(record);
-    }*/
 }
