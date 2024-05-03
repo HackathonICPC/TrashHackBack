@@ -19,6 +19,7 @@ public class AuthController {
 
     @Autowired
     private AuthService authService;
+    @Autowired
     private JwtService jwtService;
 
     @PermitAll
