@@ -2,7 +2,6 @@ package org.example.trashhackback.controller;
 
 import jakarta.annotation.security.PermitAll;
 import lombok.RequiredArgsConstructor;
-import org.example.trashhackback.controller.dto.ImageDto;
 import org.example.trashhackback.entity.ImageDao;
 import org.example.trashhackback.entity.UserDao;
 import org.example.trashhackback.repository.UserRepository;
@@ -25,7 +24,7 @@ public class ImageController {
 
     @PermitAll
     @PostMapping("/save")
-    void save(@RequestBody ImageDto imageDto) {
+    void save(@RequestBody ImageDao imageDto) {
         //imageService.save();
     }
 }
