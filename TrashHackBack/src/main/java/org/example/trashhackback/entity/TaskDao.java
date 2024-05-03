@@ -2,6 +2,8 @@ package org.example.trashhackback.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.ToString;
+import org.apache.commons.lang3.builder.HashCodeExclude;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -15,13 +17,16 @@ public class TaskDao {
     Long id;
 
     @Column(nullable = false)
+    String title;
+
+    @Column(nullable = false)
     Long previewImg;
 
     @Column
     String description;
 
     @Column
-    @OneToMany
+    @OneToMany(mappedBy = "id")
     List<UserDao> participants;
 
     @Column(nullable = false)
@@ -30,6 +35,7 @@ public class TaskDao {
     @Column(nullable = false)
     Boolean isfinished;
 
-    @Column(nullable = false)
+    @OneToOne
+    @JoinColumn(referencedColumnName = "id")
     UserDao leader;
 }

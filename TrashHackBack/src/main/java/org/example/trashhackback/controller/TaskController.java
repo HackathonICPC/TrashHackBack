@@ -1,8 +1,8 @@
 package org.example.trashhackback.controller;
 
 import jakarta.annotation.security.PermitAll;
-import org.example.trashhackback.controller.dto.UserDto;
-import org.example.trashhackback.service.TaskSevice;
+//import org.example.trashhackback.controller.dto.UserDto;
+import org.example.trashhackback.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 public class TaskController {
 
     @Autowired
-    TaskSevice taskSevice;
+    TaskService taskService;
 
     @PermitAll
     @GetMapping("/list")
