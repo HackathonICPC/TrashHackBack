@@ -6,10 +6,11 @@ import lombok.Data;
 @Entity
 @Table
 @Data
-public class UserDao {
+public class ImageDao {
     @Id
     private Long id;
 
     @Column
-    private String login, pass;
+    @Lob
+    private Byte[] img;
 }
