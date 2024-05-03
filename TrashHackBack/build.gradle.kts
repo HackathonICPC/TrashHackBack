@@ -11,6 +11,14 @@ java {
     sourceCompatibility = JavaVersion.VERSION_21
 }
 
+tasks.jar {
+    manifest {
+        attributes(
+            "Main-Class" to "org.example.TrashHackBackApplication"
+        )
+    }
+}
+
 configurations {
     compileOnly {
         extendsFrom(configurations.annotationProcessor.get())
@@ -30,7 +38,6 @@ dependencies {
     implementation("io.jsonwebtoken:jjwt:0.12.5")
     implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.5.0")
     compileOnly("org.projectlombok:lombok")
-    developmentOnly("org.springframework.boot:spring-boot-devtools")
     runtimeOnly("org.postgresql:postgresql")
     annotationProcessor("org.projectlombok:lombok")
     testImplementation("org.springframework.boot:spring-boot-starter-test")

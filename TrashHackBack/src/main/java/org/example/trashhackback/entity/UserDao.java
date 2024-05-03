@@ -11,6 +11,12 @@ public class UserDao {
     @GeneratedValue
     Long id;
 
+    @Column(nullable = false)
+    String login, password;
+
     @Column
-    private String login, password;
+    Long avatarId;
+
+    @Column(nullable = false)
+    Long experiencePoints;
 }

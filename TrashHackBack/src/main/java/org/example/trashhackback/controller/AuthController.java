@@ -1,8 +1,7 @@
 package org.example.trashhackback.controller;
 
 import jakarta.annotation.security.PermitAll;
-import org.apache.tomcat.Jar;
-import org.example.trashhackback.controller.dto.UserDto;
+import org.example.trashhackback.controller.request.UserRequest;
 import org.example.trashhackback.entity.UserDao;
 import org.example.trashhackback.service.AuthService;
 import org.example.trashhackback.service.JwtService;
@@ -24,7 +23,7 @@ public class AuthController {
 
     @PermitAll
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody UserDto user) {
+    public ResponseEntity<?> login(@RequestBody UserRequest user) {
         boolean isAuthenticated = authService.authenticate(user.login(), user.password());
 
         if (isAuthenticated) {

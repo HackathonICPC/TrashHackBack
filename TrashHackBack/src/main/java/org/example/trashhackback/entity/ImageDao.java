@@ -8,7 +8,7 @@ import lombok.Data;
 @Data
 public class ImageDao {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue
     private Long id;
 
     @Column
