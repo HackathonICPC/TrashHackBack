@@ -11,6 +11,5 @@ public class TaskDao {
     @GeneratedValue
     private Long id;
 
-    @Column
     private String login, pass;
 }

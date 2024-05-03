@@ -8,10 +8,9 @@ import lombok.Data;
 @Data
 public class ImageDao {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
     @Column
-    @Lob
-    private Byte[] img;
+    private String img;
 }
