@@ -11,5 +11,6 @@ public class UserDao {
     private Long id;
 
     @Column
-    private String login, pass;
+    private String login, password;
+
 }
