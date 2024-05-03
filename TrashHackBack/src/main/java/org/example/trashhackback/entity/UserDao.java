@@ -9,9 +9,8 @@ import lombok.Data;
 public class UserDao {
     @Id
     @GeneratedValue
-    private Long id;
+    private String login;
 
     @Column
-    private String login, password;
-
+    private String password;
 }
