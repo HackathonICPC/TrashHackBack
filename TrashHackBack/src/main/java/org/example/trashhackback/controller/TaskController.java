@@ -26,4 +26,14 @@ public class TaskController {
 
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
+
+    @PermitAll
+    @PostMapping("/new")
+    public ResponseEntity<?> setTaskService(@RequestBody TaskDao taskDao) {
+        boolean result = taskService.addTask(taskDao);
+        if (result) {
+            return new ResponseEntity<>(taskDao, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
 }
