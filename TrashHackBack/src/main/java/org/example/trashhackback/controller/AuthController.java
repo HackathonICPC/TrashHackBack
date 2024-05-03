@@ -2,6 +2,7 @@ package org.example.trashhackback.controller;
 
 import jakarta.annotation.security.PermitAll;
 import org.apache.tomcat.Jar;
+import org.example.trashhackback.controller.dto.UserDto;
 import org.example.trashhackback.entity.UserDao;
 import org.example.trashhackback.service.AuthService;
 import org.example.trashhackback.service.JwtService;
@@ -23,11 +24,11 @@ public class AuthController {
 
     @PermitAll
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody UserDao user) {
-        boolean isAuthenticated = authService.authenticate(user.getLogin(), user.getPassword());
+    public ResponseEntity<?> login(@RequestBody UserDto user) {
+        boolean isAuthenticated = authService.authenticate(user.login(), user.password());
 
         if (isAuthenticated) {
-            return ResponseEntity.ok("Login successful, token = " + jwtService.generateToken(user.getLogin(), user.getPassword()));
+            return ResponseEntity.ok("Login successful, token = " + jwtService.generateToken(user.login(), user.password()));
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Incorrect login or password");
         }
