@@ -29,7 +29,7 @@ public class AuthController {
         if (id != -1) {
             return ResponseEntity.ok(jwtService.generateToken(id));
         } else {
-                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
     }
 

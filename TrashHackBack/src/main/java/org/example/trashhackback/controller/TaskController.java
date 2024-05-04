@@ -34,16 +34,14 @@ public class TaskController {
     JwtService jwtService;
 
     @PermitAll
-    @GetMapping("/list")
+    @PostMapping("/list")
     public ResponseEntity<?> listOfTasks(@RequestBody TokenRequest token) {
         Long id = jwtService.extractId(token.token());
         if (id == -1) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
-
         List<ListTaskResponse> list = taskService.getListTasks();
-
-        return new ResponseEntity<>(list, HttpStatus.OK);
+        return ResponseEntity.ok(list);
     }
 
     @PermitAll
@@ -52,13 +50,17 @@ public class TaskController {
         TaskDao taskDao = new TaskDao();
         Long id = jwtService.extractId(taskRequest.token());
         if (id == -1) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
 
         taskDao.setCreator(userService.findById(id).get());
         taskDao.setExperience(taskRequest.experience());
         taskDao.setTitle(taskRequest.title());
         taskDao.setDescription(taskRequest.description());
+        taskDao.setLat(taskRequest.lat());
+        taskDao.setLon(taskRequest.lon());
+        taskDao.setPreviewImg(0L);
+
 
        boolean result = taskService.addTask(taskDao);
         if (result) {
