@@ -83,4 +83,17 @@ public class TaskController {
 
         return new ResponseEntity<>(taskResponse, HttpStatus.OK);
     }
+
+    @PermitAll
+    @PostMapping("/map")
+    public ResponseEntity<?> tasksForMap(@RequestBody TokenRequest token)
+    {
+        Long id = jwtService.extractId(token.token());
+        if (id == -1) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+
+        return new ResponseEntity<>("list", HttpStatus.OK);
+    }
 }
