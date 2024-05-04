@@ -11,7 +11,7 @@ import java.util.function.Function;
 @Component
 public class JwtUtil {
 
-    private String secretKey = "secret";
+    private String secretKey = "918U0XkvcNEq36E5fo9ydvjTL94BLhUi0AEkzATTrU8zvu0iU5x3lsrOeQ4P9t58";
 
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
@@ -34,8 +34,8 @@ public class JwtUtil {
         return extractExpiration(token).before(new Date());
     }
 
-    public String generateToken(String username) {
-        return Jwts.builder().setSubject(username)
+    public String generateToken(Long userId) {
+        return Jwts.builder().setSubject(userId.toString())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10))
                 .signWith(SignatureAlgorithm.HS256, secretKey).compact();

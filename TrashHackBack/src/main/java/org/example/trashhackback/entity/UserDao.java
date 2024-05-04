@@ -18,5 +18,5 @@ public class UserDao {
     Long avatarId;
 
     @Column(nullable = false)
-    Long experiencePoints;
+    Long experiencePoints = 0L;
 }

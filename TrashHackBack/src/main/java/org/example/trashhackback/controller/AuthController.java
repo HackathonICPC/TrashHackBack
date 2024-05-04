@@ -25,23 +25,22 @@ public class AuthController {
     @PermitAll
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody UserRequest user) {
-        boolean isAuthenticated = authService.authenticate(user.login(), user.password());
-
-        if (isAuthenticated) {
-            return ResponseEntity.ok("Login successful, token = " + jwtService.generateToken(user.login(), user.password()));
+        Long id = authService.authenticate(user.login(), user.password());
+        if (id != -1) {
+            return ResponseEntity.ok(jwtService.generateToken(id));
         } else {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Incorrect login or password");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
     }
 
     @PermitAll
     @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestBody UserDao user) {
-        boolean isRegistered = authService.register(user.getLogin(), user.getPassword());
-        if (isRegistered) {
-            return ResponseEntity.ok("Registration successful, token = " + jwtService.generateToken(user.getLogin(), user.getPassword()));
+    public ResponseEntity<?> register(@RequestBody UserRequest user) {
+        Long id = authService.register(user.login(), user.password());
+        if (id != -1) {
+            return ResponseEntity.ok(jwtService.generateToken(id));
         } else {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body("User with this login already exists");
+            return ResponseEntity.status(HttpStatus.CONFLICT).build();
         }
     }
 }
