@@ -38,7 +38,7 @@ public class TaskService {
 
     public List<ListTaskResponse> getListTasks()
     {
-        List<TaskDao> tasks = (this).getAllTasks();
+        List<TaskDao> tasks = getAllTasks();
 
         List<ListTaskResponse> list = new ArrayList<ListTaskResponse>();
 

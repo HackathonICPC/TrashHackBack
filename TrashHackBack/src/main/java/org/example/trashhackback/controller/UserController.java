@@ -34,7 +34,7 @@ public class UserController {
 
         Long id = jwtService.extractId(token.token());
         if (id == -1)
-            return new ResponseEntity<>("invalid user token", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("invalid user token", HttpStatus.UNAUTHORIZED);
 
         userDao = userService.findById(id).get();
 
