@@ -3,6 +3,7 @@ package org.example.trashhackback.controller;
 import jakarta.annotation.security.PermitAll;
 //import org.example.trashhackback.controller.dto.UserDto;
 import org.example.trashhackback.controller.request.TaskRequest;
+import org.example.trashhackback.controller.request.TokenRequest;
 import org.example.trashhackback.entity.TaskDao;
 import org.example.trashhackback.service.JwtService;
 import org.example.trashhackback.service.TaskService;
@@ -30,9 +31,13 @@ public class TaskController {
 
     @PermitAll
     @GetMapping("/list")
-    public ResponseEntity<?> listOfTasks() {
-        List<TaskDao> list = taskService.getAllTasks();
+    public ResponseEntity<?> listOfTasks(@RequestBody TokenRequest token) {
+        Long id = jwtService.extractId(token.token());
+        if (id == -1) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
 
+        List<TaskDao> list = taskService.getAllTasks();
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
