@@ -4,6 +4,8 @@ import jakarta.annotation.security.PermitAll;
 //import org.example.trashhackback.controller.dto.UserDto;
 import org.example.trashhackback.controller.request.TaskRequest;
 import org.example.trashhackback.controller.request.TokenRequest;
+import org.example.trashhackback.controller.response.ListTaskResponse;
+import org.example.trashhackback.controller.response.TaskResponse;
 import org.example.trashhackback.entity.TaskDao;
 import org.example.trashhackback.service.JwtService;
 import org.example.trashhackback.service.TaskService;
@@ -13,6 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -37,7 +40,16 @@ public class TaskController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
-        List<TaskDao> list = taskService.getAllTasks();
+        List<TaskDao> tasks = taskService.getAllTasks();
+
+        List<ListTaskResponse> list = new ArrayList<ListTaskResponse>();
+
+        for(TaskDao x : tasks)
+        {
+           ListTaskResponse now = new ListTaskResponse(x.getId(), x.getTitle(), x.getPreviewImg());
+           list.add(now);
+        }
+
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
@@ -60,5 +72,15 @@ public class TaskController {
             return new ResponseEntity<>(taskRequest, HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
+
+    @PermitAll
+    @PostMapping("/task")
+    public ResponseEntity<?> mainTaskInfo(@RequestBody Long taskID)
+    {
+        TaskDao task = taskService.getTask(taskID);
+        TaskResponse taskResponse = new TaskResponse(task.getId(), task.getTitle(), task.getPreviewImg(), task.getDescription(), task.getIsStarted());
+
+        return new ResponseEntity<>(taskResponse, HttpStatus.OK);
     }
 }

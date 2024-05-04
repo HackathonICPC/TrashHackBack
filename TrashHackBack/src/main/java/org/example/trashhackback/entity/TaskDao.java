@@ -20,11 +20,8 @@ public class TaskDao {
     @Column(nullable = false)
     String description;
 
-//    @Column(nullable = false)
-//    Long previewImg;
-//
-//    @Column(nullable = false)
-//    Long smallPreviewImg;
+    @Column(nullable = false)
+    Long previewImg;
 
     @Column(nullable = false)
     Long experience;
@@ -33,20 +30,21 @@ public class TaskDao {
 //    @OneToMany(mappedBy = "id")
 //    List<UserDao> participants;
 //
-//    @Column(nullable = false)
+//    @Column
 //    LocalDate orderTime;
 //
-//    @Column(nullable = false)
-//    Boolean isFinished;
+    @Column
+    Boolean isStarted = false;
 //
 //    @Column(nullable = false)
 //    Boolean isConfirmed;
-//
-//    @Column(nullable = false)
-//    Double lat;
-//
-//    @Column(nullable = false)
-//    Double lon;
+
+
+    @Column(nullable = false)
+    Double lat;
+
+    @Column(nullable = false)
+    Double lon;
 
     @OneToOne
     @JoinColumn(referencedColumnName = "id")

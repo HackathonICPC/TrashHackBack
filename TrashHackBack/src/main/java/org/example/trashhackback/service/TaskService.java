@@ -28,4 +28,8 @@ public class TaskService {
         return taskRepository.findAll();
     }
 
+    public TaskDao getTask(Long id)
+    {
+        return taskRepository.findById(id).get();
+    }
 }
