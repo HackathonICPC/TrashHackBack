@@ -34,7 +34,7 @@ public class TaskController {
     JwtService jwtService;
 
     @PermitAll
-    @GetMapping("/list")
+    @PostMapping("/list")
     public ResponseEntity<?> listOfTasks(@RequestBody TokenRequest token) {
         Long id = jwtService.extractId(token.token());
         if (id == -1) {
