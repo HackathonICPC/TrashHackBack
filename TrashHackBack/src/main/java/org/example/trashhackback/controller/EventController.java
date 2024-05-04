@@ -3,9 +3,11 @@ package org.example.trashhackback.controller;
 
 import jakarta.annotation.security.PermitAll;
 import org.example.trashhackback.controller.request.TokenRequest;
+import org.example.trashhackback.entity.TaskDao;
 import org.example.trashhackback.entity.UserDao;
 import org.example.trashhackback.service.EventService;
 import org.example.trashhackback.service.JwtService;
+import org.example.trashhackback.service.TaskService;
 import org.example.trashhackback.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,17 +30,43 @@ public class EventController {
     @Autowired
     UserService userService;
 
+    @Autowired
+    TaskService taskService;
+
+    @Autowired
+    UserTaskService userTaskService;
+
     @PermitAll
     @PostMapping("/envolve")
     public ResponseEntity<?> envolveToTask(@RequestBody TokenRequest token, Long taskID)
     {
-        Long id = jwtService.extractId(token.token());
-        if (id == -1)
-            return new ResponseEntity<>("invalid user token", HttpStatus.BAD_REQUEST);
+        Long userID = jwtService.extractId(token.token());
+        if (userID == -1)
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("invalid user token");
 
-        UserDao userDao = userService.findById(id).get();
+        if (userTaskService.isRelation(userID,taskID))
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("user already have relation");
 
-        return ResponseEntity.ok("Helloo");
+        userTaskService.addRelation(userID, taskID);
+
+        return ResponseEntity.ok("task related");
     }
 
+    @PermitAll
+    @PostMapping("/start")
+    public ResponseEntity<?> startTask(@RequestBody TokenRequest token, Long taskID)
+    {
+        Long userID = jwtService.extractId(token.token());
+        TaskDao taskDao = taskService.getTask(taskID);
+        if (userID == -1)
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("invalid user token");
+        UserDao userDao = userService.findById(userID).get();
+
+        if (userDao.getExperiencePoints() < taskDao.getExperience() || taskDao.getIsStarted())
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("invalid task status");
+
+        taskService.update(taskID, true, userDao);
+
+        return ResponseEntity.ok("tasked changed");
+    }
 }

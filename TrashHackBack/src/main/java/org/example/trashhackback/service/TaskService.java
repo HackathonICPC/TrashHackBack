@@ -4,6 +4,7 @@ package org.example.trashhackback.service;
 import org.example.trashhackback.controller.response.ListTaskResponse;
 import org.example.trashhackback.controller.response.MapTaskResponse;
 import org.example.trashhackback.entity.TaskDao;
+import org.example.trashhackback.entity.UserDao;
 import org.example.trashhackback.repository.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.config.Task;
@@ -63,5 +64,19 @@ public class TaskService {
         }
         return list;
     }
+
+    public void deleteTask(Long id)
+    {
+        taskRepository.deleteById(id);
+    }
+
+    public void update(Long id, Boolean flag, UserDao user)
+    {
+        TaskDao taskDao = taskRepository.findById(id).get();
+        taskDao.setIsStarted(flag);
+        taskDao.setCreator(user);
+        taskRepository.save(taskDao);
+    }
+
 
 }

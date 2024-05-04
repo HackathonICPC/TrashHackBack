@@ -33,6 +33,9 @@ public class TaskController {
     @Autowired
     JwtService jwtService;
 
+    @Autowired
+    UserTaskService userTaskService;
+
     @PermitAll
     @PostMapping("/list")
     public ResponseEntity<?> listOfTasks(@RequestBody TokenRequest token) {
@@ -71,10 +74,16 @@ public class TaskController {
 
     @PermitAll
     @PostMapping("/task")
-    public ResponseEntity<?> mainTaskInfo(@RequestBody Long taskID)
+    public ResponseEntity<?> mainTaskInfo(@RequestBody TokenRequest token, Long taskID)
     {
+        Long userID = jwtService.extractId(token.token());
+        if (userID == -1)
+            return new ResponseEntity<>("invalid user token", HttpStatus.BAD_REQUEST);
+
         TaskDao task = taskService.getTask(taskID);
-        TaskResponse taskResponse = new TaskResponse(task.getId(), task.getTitle(), task.getPreviewImg(), task.getDescription(), task.getIsStarted());
+        Boolean isRelated = userTaskService.isRelation(userID,taskID);
+
+        TaskResponse taskResponse = new TaskResponse(task.getId(), task.getTitle(), task.getPreviewImg(), task.getDescription(), task.getIsStarted(), isRelated);
 
         return new ResponseEntity<>(taskResponse, HttpStatus.OK);
     }
