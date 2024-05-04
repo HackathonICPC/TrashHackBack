@@ -7,5 +7,4 @@ import java.util.List;
 
 public interface UserTaskRepository extends JpaRepository<UserTaskDao, Long> {
     boolean existsByUserIdAndTaskId(Long userId, Long taskId);
-    List<UserTaskDao> AllRelations(Long userId);
 }

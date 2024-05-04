@@ -12,10 +12,10 @@ public class UserTaskDao {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "user_id") // Изменено имя столбца на "user_id"
     private UserDao user;
 
     @ManyToOne
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "task_id") // Изменено имя столбца на "task_id"
     private TaskDao task;
 }

@@ -5,10 +5,7 @@ import jakarta.annotation.security.PermitAll;
 import org.example.trashhackback.controller.request.TokenRequest;
 import org.example.trashhackback.entity.TaskDao;
 import org.example.trashhackback.entity.UserDao;
-import org.example.trashhackback.service.EventService;
-import org.example.trashhackback.service.JwtService;
-import org.example.trashhackback.service.TaskService;
-import org.example.trashhackback.service.UserService;
+import org.example.trashhackback.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -44,10 +41,10 @@ public class EventController {
         if (userID == -1)
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("invalid user token");
 
-        if (userTaskService.isRelation(userID,taskID))
+        if (userTaskService.isRelation(userID, taskID))
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("user already have relation");
 
-        userTaskService.addRelation(userID, taskID);
+        userTaskService.addRelation(userService.findById(userID).get(), taskService.getTask(taskID));
 
         return ResponseEntity.ok("task related");
     }

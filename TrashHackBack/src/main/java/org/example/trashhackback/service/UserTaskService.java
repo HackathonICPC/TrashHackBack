@@ -13,8 +13,8 @@ import org.springframework.stereotype.Service;
 public class UserTaskService {
     private final UserTaskRepository userTaskRepository;
 
-    public boolean isRelation(UserDao userDao, TaskDao taskDao) {
-        return userTaskRepository.existsByUserIdAndTaskId(userDao.getId(), taskDao.getId());
+    public boolean isRelation(Long userID, Long taskID) {
+        return userTaskRepository.existsByUserIdAndTaskId(userID, taskID);
     }
 
     public void addRelation(UserDao userDao, TaskDao taskDao)  {
