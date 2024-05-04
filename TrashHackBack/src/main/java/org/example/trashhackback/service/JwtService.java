@@ -26,7 +26,12 @@ public class JwtService {
     }
 
     public Long extractId(String token) {
-        return Long.parseLong(jwtUtil.extractUsername(token));
+        Long id = Long.parseLong(jwtUtil.extractUsername(token));
+
+        if (validateToken(token, id.toString()))
+            return id;
+        else
+            return -1L;
     }
 
     public Date extractExpiration(String token) {
