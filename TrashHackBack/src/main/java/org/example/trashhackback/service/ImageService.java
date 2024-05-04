@@ -24,7 +24,7 @@ public class ImageService {
         imageRepository.deleteAll();
     }
 
-    public void save(MultipartFile file) throws IOException {
+    public Long save(MultipartFile file) throws IOException {
         ImageDao imageDao = new ImageDao();
 
         String filename = UUID.randomUUID() + ".jpg";
@@ -35,7 +35,7 @@ public class ImageService {
         File targetFile = new File(filePath);
         FileUtils.copyInputStreamToFile(file.getInputStream(), targetFile);
 
-        imageRepository.save(imageDao);
+        return imageRepository.save(imageDao).getId();
     }
 
     public List<ImageDao> get() {
