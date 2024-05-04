@@ -1,3 +1,4 @@
+/*
 package org.example.trashhackback.service;
 
 import lombok.RequiredArgsConstructor;
@@ -14,15 +15,16 @@ public class UserTaskService {
     private final UserTaskRepository userTaskRepository;
 
     public boolean isRelation(Long userID, Long taskID) {
-        return userTaskRepository.existsByUserIdAndTaskId(userID, taskID);
+        return userTaskRepository.existsByUser_IdAndTask_Id(userID, taskID);
     }
 
-    public void addRelation(UserDao userDao, TaskDao taskDao)  {
+    public void addRelation(Long userID, Long taskID)  {
         UserTaskDao userTaskDao = new UserTaskDao();
 
-        userTaskDao.setUser(userDao);
-        userTaskDao.setTask(taskDao);
+        userTaskDao.setUser(userID);
+        userTaskDao.setTask(taskID);
 
         userTaskRepository.save(userTaskDao);
     }
 }
+*/

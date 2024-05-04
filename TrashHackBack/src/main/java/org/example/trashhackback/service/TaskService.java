@@ -45,7 +45,7 @@ public class TaskService {
 
         for(TaskDao x : tasks)
         {
-            ListTaskResponse now = new ListTaskResponse(x.getId(), x.getTitle(), x.getPreviewImg());
+            ListTaskResponse now = new ListTaskResponse(x.getId(), x.getTitle());
             list.add(now);
         }
         return list;

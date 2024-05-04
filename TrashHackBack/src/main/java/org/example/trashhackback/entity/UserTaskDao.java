@@ -1,3 +1,4 @@
+/*
 package org.example.trashhackback.entity;
 
 import jakarta.persistence.*;
@@ -11,11 +12,10 @@ public class UserTaskDao {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id") // Изменено имя столбца на "user_id"
-    private UserDao user;
+    @Column
+    private Long user;
 
-    @ManyToOne
-    @JoinColumn(name = "task_id") // Изменено имя столбца на "task_id"
-    private TaskDao task;
+    @Column
+    private Long task;
 }
+*/

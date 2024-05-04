@@ -11,7 +11,7 @@ import org.example.trashhackback.entity.TaskDao;
 import org.example.trashhackback.service.JwtService;
 import org.example.trashhackback.service.TaskService;
 import org.example.trashhackback.service.UserService;
-import org.example.trashhackback.service.UserTaskService;
+//import org.example.trashhackback.service.UserTaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,8 +34,6 @@ public class TaskController {
     @Autowired
     JwtService jwtService;
 
-    @Autowired
-    UserTaskService userTaskService;
 
     @PermitAll
     @PostMapping("/list")
@@ -85,9 +83,8 @@ public class TaskController {
             return new ResponseEntity<>("invalid user token", HttpStatus.BAD_REQUEST);
 
         TaskDao task = taskService.getTask(taskID);
-        boolean isRelated = userTaskService.isRelation(userID, taskID);
 
-        TaskResponse taskResponse = new TaskResponse(task.getId(), task.getTitle(), task.getPreviewImg(), task.getDescription(), task.getIsStarted(), isRelated);
+        TaskResponse taskResponse = new TaskResponse(task.getId(), task.getTitle(), task.getPreviewImg(), task.getDescription(), task.getIsStarted(), false);
 
         return new ResponseEntity<>(taskResponse, HttpStatus.OK);
     }

@@ -1,3 +1,4 @@
+/*
 package org.example.trashhackback.controller;
 
 
@@ -44,7 +45,7 @@ public class EventController {
         if (userTaskService.isRelation(userID, taskID))
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("user already have relation");
 
-        userTaskService.addRelation(userService.findById(userID).get(), taskService.getTask(taskID));
+        userTaskService.addRelation(userID, taskID);
 
         return ResponseEntity.ok("task related");
     }
@@ -67,3 +68,4 @@ public class EventController {
         return ResponseEntity.ok("tasked changed");
     }
 }
+*/
