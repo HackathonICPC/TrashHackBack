@@ -39,6 +39,7 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/v1/auth/**").permitAll()
                         .requestMatchers("/api/v1/images/**").permitAll()
+                        .requestMatchers("/api/v1/**").permitAll()
                         .anyRequest().authenticated())
                 .formLogin(form -> form.defaultSuccessUrl("/swagger-ui.html", true))
                 .httpBasic(Customizer.withDefaults());

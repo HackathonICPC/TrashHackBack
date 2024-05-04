@@ -56,6 +56,9 @@ public class TaskController {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
 
+        System.out.println(id);
+        System.out.println("!!!!!!!!!!!" + userService.findById(id));
+
         taskDao.setCreator(userService.findById(id).get());
         taskDao.setExperience(taskRequest.experience());
         taskDao.setTitle(taskRequest.title());
