@@ -1,5 +1,8 @@
 package org.example.trashhackback.controller;
 
+import jakarta.annotation.security.PermitAll;
+import org.example.trashhackback.controller.response.UserResponse;
+import org.example.trashhackback.entity.UserDao;
 import org.example.trashhackback.service.JwtService;
 import org.example.trashhackback.service.UserService;
 import org.example.trashhackback.utils.JwtUtil;
@@ -22,9 +25,20 @@ public class UserController {
     @Autowired
     JwtService jwtService;
 
+    UserDao userDao;
+
+    @PermitAll
+    @PostMapping("/info")
     public ResponseEntity<?> profileInfo(@RequestParam String token) {
 
+        Long id = jwtService.extractId(token);
+        if (id == -1)
+            return new ResponseEntity<>("invalid user token", HttpStatus.BAD_REQUEST);
 
-        return new ResponseEntity<>("Hello world!", HttpStatus.OK);
+        userDao = userService.findById(id).get();
+
+        UserResponse userResponse = new UserResponse(jwtService.generateToken(userDao.getId()), userDao.getLogin(), userDao.getExperiencePoints());
+
+        return new ResponseEntity<>(userResponse, HttpStatus.OK);
     }
 }

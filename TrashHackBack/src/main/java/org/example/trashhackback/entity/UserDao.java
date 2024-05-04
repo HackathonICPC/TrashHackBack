@@ -3,6 +3,8 @@ package org.example.trashhackback.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.List;
+
 @Entity
 @Table
 @Data
@@ -20,6 +22,8 @@ public class UserDao {
     @Column(nullable = false)
     Long experiencePoints = 0L;
 
-//    @Column(nullable = false)
+    @Column
+    @OneToMany(mappedBy = "id")
+    List<TaskDao> tasks;
 
 }
