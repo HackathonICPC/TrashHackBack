@@ -5,6 +5,7 @@ import jakarta.annotation.security.PermitAll;
 import org.example.trashhackback.controller.request.TaskRequest;
 import org.example.trashhackback.controller.request.TokenRequest;
 import org.example.trashhackback.controller.response.ListTaskResponse;
+import org.example.trashhackback.controller.response.MapTaskResponse;
 import org.example.trashhackback.controller.response.TaskResponse;
 import org.example.trashhackback.entity.TaskDao;
 import org.example.trashhackback.service.JwtService;
@@ -40,15 +41,7 @@ public class TaskController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
-        List<TaskDao> tasks = taskService.getAllTasks();
-
-        List<ListTaskResponse> list = new ArrayList<ListTaskResponse>();
-
-        for(TaskDao x : tasks)
-        {
-           ListTaskResponse now = new ListTaskResponse(x.getId(), x.getTitle(), x.getPreviewImg());
-           list.add(now);
-        }
+        List<ListTaskResponse> list = taskService.getListTasks();
 
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
@@ -93,7 +86,8 @@ public class TaskController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
+        List<MapTaskResponse> list = taskService.getMapTasks();
 
-        return new ResponseEntity<>("list", HttpStatus.OK);
+        return new ResponseEntity<>(list, HttpStatus.OK);
     }
 }
