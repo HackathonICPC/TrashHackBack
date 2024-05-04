@@ -3,6 +3,7 @@ package org.example.trashhackback;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -13,6 +14,13 @@ import java.util.stream.Stream;
 public class TrashHackBackApplication {
 
     public static void main(String[] args) {
+        String directoryPath = "images";
+
+        File directory = new File(directoryPath);
+        if (!directory.exists()) {
+            directory.mkdirs();
+        }
+
         Path dirPath = Paths.get("images/");
         try (Stream<Path> stream = Files.walk(dirPath)) {
             stream

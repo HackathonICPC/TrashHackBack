@@ -25,8 +25,8 @@ public class JwtService {
         return jwtUtil.validateToken(token, username);
     }
 
-    public String extractUsername(String token) {
-        return jwtUtil.extractUsername(token);
+    public Long extractId(String token) {
+        return Long.parseLong(jwtUtil.extractUsername(token));
     }
 
     public Date extractExpiration(String token) {

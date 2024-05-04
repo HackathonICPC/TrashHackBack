@@ -18,44 +18,37 @@ public class TaskDao {
     String title;
 
     @Column(nullable = false)
-    String info;
-
-    @Column(nullable = false)
-    Long previewImg;
-
-    @Column(nullable = false)
-    Long smallPreviewImg;
-
-    @Column(nullable = false)
     String description;
 
-    @Column(nullable = false)
-    Long peopleCount;
+//    @Column(nullable = false)
+//    Long previewImg;
+//
+//    @Column(nullable = false)
+//    Long smallPreviewImg;
 
     @Column(nullable = false)
     Long experience;
+//
+//    @Column
+//    @OneToMany(mappedBy = "id")
+//    List<UserDao> participants;
+//
+//    @Column(nullable = false)
+//    LocalDate orderTime;
+//
+//    @Column(nullable = false)
+//    Boolean isFinished;
+//
+//    @Column(nullable = false)
+//    Boolean isConfirmed;
+//
+//    @Column(nullable = false)
+//    Double lat;
+//
+//    @Column(nullable = false)
+//    Double lon;
 
-    /*
-    @Column
-    @OneToMany(mappedBy = "id")
-    List<UserDao> participants;
-    */
-
-    @Column(nullable = false)
-    LocalDate orderTime;
-
-    @Column(nullable = false)
-    Boolean isFinished;
-
-    @Column(nullable = false)
-    Double lat;
-
-    @Column(nullable = false)
-    Double lon;
-
-    /*
     @OneToOne
     @JoinColumn(referencedColumnName = "id")
-    UserDao leader;
-    */
+    UserDao creator;
 }

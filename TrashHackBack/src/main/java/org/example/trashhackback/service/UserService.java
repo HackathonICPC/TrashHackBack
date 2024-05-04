@@ -9,6 +9,7 @@ import org.example.trashhackback.entity.UserDao;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -17,6 +18,10 @@ public class UserService {
 
     public void deleteAll() {
         userRepository.deleteAll();
+    }
+
+    public Optional<UserDao> findById(Long id) {
+        return userRepository.findById(id);
     }
 
     public void save(UserDao userDao) {

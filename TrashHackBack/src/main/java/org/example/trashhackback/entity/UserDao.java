@@ -19,4 +19,7 @@ public class UserDao {
 
     @Column(nullable = false)
     Long experiencePoints = 0L;
+
+//    @Column(nullable = false)
+
 }
