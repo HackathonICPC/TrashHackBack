@@ -40,15 +40,17 @@ public class TaskController {
     @PostMapping("/new")
     public ResponseEntity<?> setTaskService(@RequestBody TaskRequest taskRequest) {
         TaskDao taskDao = new TaskDao();
-        taskDao.setCreator(
-                userService.findById(jwtService.extractId(taskRequest.token())).get()
-        );
+        Long id = jwtService.extractId(taskRequest.token());
+        if (id == -1) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
 
+        taskDao.setCreator(userService.findById(id).get());
+        taskDao.setExperience(taskRequest.experience());
+        taskDao.setTitle(taskRequest.title());
+        taskDao.setDescription(taskRequest.description());
 
-
-
-//        boolean result = taskService.addTask(;
-        boolean result = true;
+       boolean result = taskService.addTask(taskDao);
         if (result) {
             return new ResponseEntity<>(taskRequest, HttpStatus.OK);
         }
