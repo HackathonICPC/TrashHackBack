@@ -6,6 +6,7 @@ import org.example.trashhackback.entity.ImageDao;
 import org.example.trashhackback.entity.UserDao;
 import org.example.trashhackback.repository.ImageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.expression.ExpressionException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -36,6 +37,11 @@ public class ImageService {
         FileUtils.copyInputStreamToFile(file.getInputStream(), targetFile);
 
         return imageRepository.save(imageDao).getId();
+    }
+
+
+    public String findById(Long id) throws Exception {
+        return imageRepository.findById(id).orElseThrow(() -> new Exception("Not found")).getImg();
     }
 
     public List<ImageDao> get() {
