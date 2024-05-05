@@ -44,8 +44,7 @@ public class TaskService {
 
         for(TaskDao x : tasks)
         {
-            // NADO ISPRAVIT ID -> STRING NA PHOTO URL
-            ListTaskResponse now = new ListTaskResponse(x.getId(), x.getPhotoID().toString(), x.getTitle());
+            ListTaskResponse now = new ListTaskResponse(x.getId(), x.getPhotoID(), x.getTitle());
             list.add(now);
         }
         return list;

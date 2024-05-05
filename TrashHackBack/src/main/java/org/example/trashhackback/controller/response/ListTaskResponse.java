@@ -1,4 +1,4 @@
 package org.example.trashhackback.controller.response;
 
-public record ListTaskResponse(Long taskID, String taskPhoto, String taskTitle) {
+public record ListTaskResponse(Long taskID, Long taskPhoto, String taskTitle) {
 }

@@ -79,8 +79,7 @@ public class TaskController {
         TaskDao task = taskService.getTask(taskID);
         boolean isRelated = user.hasTask(taskID);
 
-        // NADO ISPRAVIT ID -> STRING NA PHOTO URL
-        TaskResponse taskResponse = new TaskResponse(task.getPhotoID().toString(), task.getTitle(), task.getDescription(), isRelated);
+        TaskResponse taskResponse = new TaskResponse(task.getPhotoID(), task.getTitle(), task.getDescription(), isRelated);
 
         return ResponseEntity.status(HttpStatus.OK).body(taskResponse);
     }
