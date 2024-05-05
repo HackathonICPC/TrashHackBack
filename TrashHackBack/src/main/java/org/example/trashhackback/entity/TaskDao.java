@@ -35,7 +35,7 @@ public class TaskDao {
     @Column(nullable = false)
     Double y;
 
-    @OneToOne
-    @JoinColumn(referencedColumnName = "id")
+    @ManyToOne // Изменяем на аннотацию @ManyToOne
+    @JoinColumn(name = "creator_id", referencedColumnName = "id") // Указываем имя столбца с внешним ключом
     UserDao creator;
 }
