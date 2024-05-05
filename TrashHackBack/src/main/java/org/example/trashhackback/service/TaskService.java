@@ -19,6 +19,11 @@ public class TaskService {
     @Autowired
     private TaskRepository taskRepository;
 
+    @Autowired
+    private ImageService imageService;
+
+    public void save(TaskDao taskDao) { taskRepository.save(taskDao); }
+
     public boolean addTask(TaskDao task) {
         if (taskRepository.findByTitle(task.getTitle()) == null) {
             taskRepository.save(task);
@@ -27,15 +32,9 @@ public class TaskService {
         return false;
     }
 
-    public List<TaskDao> getAllTasks()
-    {
-        return taskRepository.findAll();
-    }
+    public List<TaskDao> getAllTasks() { return taskRepository.findAll(); }
 
-    public TaskDao getTask(Long id)
-    {
-        return taskRepository.findById(id).get();
-    }
+    public TaskDao getTask(Long id) { return taskRepository.findById(id).get();    }
 
     public List<ListTaskResponse> getListTasks()
     {
@@ -45,7 +44,8 @@ public class TaskService {
 
         for(TaskDao x : tasks)
         {
-            ListTaskResponse now = new ListTaskResponse(x.getId(), x.getTitle());
+            // NADO ISPRAVIT ID -> STRING NA PHOTO URL
+            ListTaskResponse now = new ListTaskResponse(x.getId(), x.getPhotoID().toString(), x.getTitle());
             list.add(now);
         }
         return list;
@@ -59,7 +59,7 @@ public class TaskService {
 
         for(TaskDao x : tasks)
         {
-            MapTaskResponse now = new MapTaskResponse(x.getId(), x.getLat(), x.getLon(), x.getExperience());
+            MapTaskResponse now = new MapTaskResponse(x.getId(), x.getTitle(), x.getDescription(), x.getX(), x.getY(), x.getExperience());
             list.add(now);
         }
         return list;
@@ -69,14 +69,4 @@ public class TaskService {
     {
         taskRepository.deleteById(id);
     }
-
-    public void update(Long id, Boolean flag, UserDao user)
-    {
-        TaskDao taskDao = taskRepository.findById(id).get();
-        taskDao.setIsStarted(flag);
-        taskDao.setCreator(user);
-        taskRepository.save(taskDao);
-    }
-
-
 }

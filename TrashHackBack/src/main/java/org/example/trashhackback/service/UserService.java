@@ -16,19 +16,9 @@ import java.util.Optional;
 public class UserService {
     private final UserRepository userRepository;
 
-    public void deleteAll() {
-        userRepository.deleteAll();
-    }
-
-    public Optional<UserDao> findById(Long id) {
-        return userRepository.findById(id);
-    }
+    public Optional<UserDao> findById(Long id) { return userRepository.findById(id); }
 
     public void save(UserDao userDao) {
         userRepository.save(userDao);
-    }
-
-    public List<UserDao> get() {
-        return userRepository.findAll();
     }
 }

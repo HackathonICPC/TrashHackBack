@@ -26,20 +26,18 @@ public class UserController {
     @Autowired
     JwtService jwtService;
 
-    UserDao userDao;
-
     @PermitAll
     @PostMapping("/info")
     public ResponseEntity<?> profileInfo(@RequestParam TokenRequest token) {
 
         Long id = jwtService.extractId(token.token());
         if (id == -1)
-            return new ResponseEntity<>("invalid user token", HttpStatus.UNAUTHORIZED);
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("invalid user token");
 
-        userDao = userService.findById(id).get();
+        UserDao userDao = userService.findById(id).get();
 
-        UserResponse userResponse = new UserResponse(jwtService.generateToken(userDao.getId()), userDao.getLogin(), userDao.getExperiencePoints());
+        UserResponse userResponse = new UserResponse(userDao.getLogin(), userDao.getExperiencePoints(), userDao.getColor());
 
-        return new ResponseEntity<>(userResponse, HttpStatus.OK);
+        return ResponseEntity.status(HttpStatus.OK).body(userResponse);
     }
 }

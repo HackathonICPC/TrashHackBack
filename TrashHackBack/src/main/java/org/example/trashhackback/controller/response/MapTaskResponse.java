@@ -1,4 +1,6 @@
 package org.example.trashhackback.controller.response;
 
-public record MapTaskResponse(Long id, Double lat, Double lon, Long experiencePoints) {
+public record MapTaskResponse(Long taskID, String taskTitle,
+                              String taskDescription, Double taskX, Double taskY,
+                              Long taskExperiencePoints) {
 }

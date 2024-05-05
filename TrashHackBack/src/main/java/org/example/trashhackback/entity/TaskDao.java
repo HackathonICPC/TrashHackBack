@@ -21,30 +21,19 @@ public class TaskDao {
     String description;
 
     @Column(nullable = false)
-    Long previewImg;
+    Long photoID;
 
     @Column(nullable = false)
     Long experience;
-//
-//    @Column
-//    @OneToMany(mappedBy = "id")
-//    List<UserDao> participants;
-//
-//    @Column
-//    LocalDate orderTime;
-//
+
     @Column
     Boolean isStarted = false;
-//
-//    @Column(nullable = false)
-//    Boolean isConfirmed;
-
 
     @Column(nullable = false)
-    Double lat;
+    Double x;
 
     @Column(nullable = false)
-    Double lon;
+    Double y;
 
     @OneToOne
     @JoinColumn(referencedColumnName = "id")

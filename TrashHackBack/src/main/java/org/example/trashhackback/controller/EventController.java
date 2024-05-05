@@ -1,4 +1,3 @@
-/*
 package org.example.trashhackback.controller;
 
 
@@ -31,9 +30,6 @@ public class EventController {
     @Autowired
     TaskService taskService;
 
-    @Autowired
-    UserTaskService userTaskService;
-
     @PermitAll
     @PostMapping("/envolve")
     public ResponseEntity<?> envolveToTask(@RequestBody TokenRequest token, Long taskID)
@@ -42,10 +38,13 @@ public class EventController {
         if (userID == -1)
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("invalid user token");
 
-        if (userTaskService.isRelation(userID, taskID))
+        UserDao user = userService.findById(userID).get();
+
+        if (user.hasTask(taskID))
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("user already have relation");
 
-        userTaskService.addRelation(userID, taskID);
+        user.addTask(taskService.getTask(taskID));
+        userService.save(user);
 
         return ResponseEntity.ok("task related");
     }
@@ -55,17 +54,19 @@ public class EventController {
     public ResponseEntity<?> startTask(@RequestBody TokenRequest token, Long taskID)
     {
         Long userID = jwtService.extractId(token.token());
-        TaskDao taskDao = taskService.getTask(taskID);
         if (userID == -1)
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("invalid user token");
+
+        TaskDao taskDao = taskService.getTask(taskID);
         UserDao userDao = userService.findById(userID).get();
 
         if (userDao.getExperiencePoints() < taskDao.getExperience() || taskDao.getIsStarted())
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("invalid task status");
 
-        taskService.update(taskID, true, userDao);
+        taskDao.setIsStarted(true);
+        taskDao.setCreator(userDao);
+        taskService.save(taskDao);
 
         return ResponseEntity.ok("tasked changed");
     }
 }
-*/
